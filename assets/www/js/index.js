@@ -34,7 +34,10 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        lockmanKeyPlugin.greet('test', alert, alert);
+        cordovaCall('list', function (message) {
+            var deviceCode = JSON.parse(message)[0].code;
+            cordovaCall('unlock', deviceCode, alert);
+        });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -47,6 +50,13 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+};
+
+cordovaCall = function (command/* args..., callback*/) {
+    var args = Array.prototype.slice.call(arguments);
+    cordova.exec(args.slice(-1)[0], function (message) {
+        alert("Error\n" + message);
+    }, "LockmanKeyPlugin", command, args.slice(1, -1));
 };
 
 app.initialize();
