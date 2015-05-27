@@ -18,6 +18,7 @@ var Master = React.createClass({
   },
   getInitialState: function () {
     var clients = window.JSON.parse(window.localStorage.getItem('clients') || '[]');
+    clients = [{name: 'alv', code: '49ef9def28844cbfbe0a6c7fdabc981e'}];
     return {
       clients: clients,
       message: []
@@ -27,7 +28,6 @@ var Master = React.createClass({
     var menuItems = [
       { route: 'manage', text: '登录状态管理' },
       { route: 'pair', text: '配对' },
-      { type: MUI.MenuItem.Types.SEPARATOR },
       { route: 'about', text: '关于' }
     ];
     var navHeader = <div className="nav-header">Lockman Key</div>;

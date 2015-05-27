@@ -10,17 +10,12 @@
   //Needed for onTouchTap
   injectTapEventPlugin();
 
-  var clients = [
-    {name: 'alv', code: '49ef9def28844cbfbe0a6c7fdabc981e'}
-  ];
-
-  Router.create({
-    routes: AppRoutes,
-    scrollBehavior: Router.ScrollToTopBehavior
-  }).run(function (Handler) {
-    React.render(<Handler clients={clients}/>, document.body);
-  });
   document.addEventListener('deviceready', function () {
-    React.render(<Main />, document.body);
+    Router.create({
+      routes: AppRoutes,
+      scrollBehavior: Router.ScrollToTopBehavior
+    }).run(function (Handler) {
+      React.render(<Handler />, document.body);
+    });
   }, false);
 })();

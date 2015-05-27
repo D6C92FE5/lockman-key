@@ -37,7 +37,7 @@ h1 {
   margin-right: 4px;
 }
 .manage-item-code {
-  font-family: monospace;
+  font-family: monospace!important;
   font-size: 12px;
   color: #bbb;
 }
@@ -60,7 +60,7 @@ h1 {
   font-size: 24px;
 }
 .pair-item-code {
-  font-family: monospace;
+  font-family: monospace!important;
   font-size: 12px;
 }
 .pair-item-control > div {
