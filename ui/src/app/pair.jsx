@@ -12,23 +12,16 @@ var Main = React.createClass({
   },
   componentWillMount: function () {
     var that = this;
-    /*
     cordova.call('list', function (message) {
-        that.setState(JSON.parse(message));
+        that.setState({onlineClients: JSON.parse(message)});
     });
-    */
-    that.setState({onlineClients: [
-      {name: 'alv', code: '49ef9def28844cbfbe0a6c7fdabc981e'},
-      {name: 'test-pc', code: '8817b8c17680471799eac4bc370e9943'},
-      {name: '测试', code: 'c59f20f29f6e4479a187a7234679c6b9'}
-    ]});
   },
   render: function() {
     var props = this.props;
     var clients = _.map(this.state.onlineClients, function (onlineClient) {
       var paired = _.findIndex(props.clients, function (client) {
-        return onlineClient.code == client.code;
-      }) != -1;
+        return onlineClient.code === client.code;
+      }) !== -1;
       return <Main.Item
         key={onlineClient.code}
         client={onlineClient}

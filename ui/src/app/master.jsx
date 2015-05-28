@@ -18,7 +18,6 @@ var Master = React.createClass({
   },
   getInitialState: function () {
     var clients = window.JSON.parse(window.localStorage.getItem('clients') || '[]');
-    clients = [{name: 'alv', code: '49ef9def28844cbfbe0a6c7fdabc981e'}];
     return {
       clients: clients,
       message: []
@@ -63,7 +62,7 @@ var Master = React.createClass({
   handleClientRemove: function (clientCode) {
     var clients = this.state.clients;
     var index = _.findIndex(clients, function (client) {
-      return client.code == clientCode;
+      return client.code === clientCode;
     });
     clients.splice(index, 1);
     this.handleClientsRefresh();

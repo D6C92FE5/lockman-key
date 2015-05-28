@@ -27,24 +27,38 @@ Main.Item = React.createClass({
       <MUI.Paper className="manage-item" zDepth={1}>
         <div className="manage-item-title">
           <span className="manage-item-name">{client.name}</span>
-          <span className="manage-item-code">({client.code})</span>
+          <span className="manage-item-code">({client.code.slice(0, 6)})</span>
         </div>
         <div className="manage-item-control">
           <MUI.RaisedButton label="当前状态" onTouchTap={this.handleStatus}/>
-          <MUI.RaisedButton label="解锁" secondary={true} onTouchTap={this.handleLock} />
-          <MUI.RaisedButton label="锁定" primary={true} onTouchTap={this.handleUnlock} />
+          <MUI.RaisedButton label="锁定" primary={true} onTouchTap={this.handleLock} />
+          <MUI.RaisedButton label="解锁" secondary={true} onTouchTap={this.handleUnlock} />
         </div>
       </MUI.Paper>
     );
   },
   handleStatus: function () {
-    cordova.call('status', this.props.client.code, alert);
+    cordova.call('status', this.props.client.code, function (message) {
+      alert(JSON.parse(message).status === 'locked' ? '已锁定' : '已解锁');
+    });
   },
   handleLock: function () {
-    cordova.call('lock', this.props.client.code, alert);
+    cordova.call('lock', this.props.client.code, function (message) {
+      var error = JSON.parse(message).error;
+      if (error) {
+        alert(error);
+      }
+      //alert(JSON.parse(message).message);
+    });
   },
   handleUnlock: function () {
-    cordova.call('unlock', this.props.client.code, alert);
+    cordova.call('unlock', this.props.client.code, function (message) {
+      var error = JSON.parse(message).error;
+      if (error) {
+        alert(error);
+      }
+      //alert(JSON.parse(message).message);
+    });
   }
 });
 
